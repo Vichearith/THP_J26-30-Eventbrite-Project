@@ -2,6 +2,10 @@ User.destroy_all
 Event.destroy_all
 Attendance.destroy_all
 
+User.reset_pk_sequence
+Event.reset_pk_sequence
+Attendance.reset_pk_sequence
+
 10.times do 
   user = User.create!(email: Faker::Internet.free_email, description: Faker::Movies::HarryPotter.quote, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, encrypted_password: Faker::Internet.password)
 end
