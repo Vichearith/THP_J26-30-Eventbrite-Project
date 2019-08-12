@@ -77,3 +77,7 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
 end
+
+# ActionMailer
+gem 'dotenv-rails'
+gem 'sendgrid-ruby'
