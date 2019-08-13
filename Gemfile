@@ -81,3 +81,5 @@ end
 # ActionMailer
 gem 'dotenv-rails'
 gem 'sendgrid-ruby'
+
+gem 'devise'

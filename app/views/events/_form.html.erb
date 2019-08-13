@@ -1,32 +1,46 @@
 <%= form_with(model: event, local: true) do |form| %>
   <% if event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-      <ul>
-      <% event.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+  <div id="error_explanation" class="alert alert-warning mx-5 mt-2 px-5 text-left">
+    <%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:
+    <ul>
+    <% event.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
   <% end %>
 
   <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, class:"form-control" %>
+  </div>
+  
+  <div class="field">
     <%= form.label :start_date %>
-    <%= form.datetime_select :start_date %>
+    <%= form.datetime_select :start_date, class:"form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :Attendance %>
-    <%= form.text_field :Attendance %>
+    <%= form.label :duration %>
+    <%= form.number_field :duration, in: 0..10080, step: 5, class:"form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :stripe_customer_id %>
-    <%= form.text_field :stripe_customer_id %>
+    <%= form.label :description %>
+    <%= form.text_area :description, class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location, class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price, in: 1..1000, class:"form-control"%>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class:"btn btn-primary btn-lg btn-block"%>
   </div>
 <% end %>

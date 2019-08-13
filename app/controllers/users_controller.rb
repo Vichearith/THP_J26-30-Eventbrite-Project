@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:show]
+  before_action :only_see_own_page, only: [:show]
 
   # GET /users
   # GET /users.json
@@ -10,6 +12,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find(params[:id])
+    @user_events = Event.where(admin: @user.id)
   end
 
   # GET /users/new
@@ -70,5 +74,13 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:email, :encrypted_password, :description, :first_name, :last_name)
+    end
+
+    def only_see_own_page
+      @user = User.find(params[:id])
+    
+      if current_user != @user
+        redirect_to root_path, notice: "Sorry, but you are only allowed to view your own profile page."
+      end
     end
 end

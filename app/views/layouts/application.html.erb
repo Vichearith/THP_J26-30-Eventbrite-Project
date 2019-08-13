@@ -1,15 +1,60 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TheEventbriteProject</title>
+    <title>The Eventbrite Project</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">      
+        <a class="navbar-brand" href="/">The Eventbrite Project</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <%=link_to "Nouvel event", new_event_path, :class => "nav-link"%>
+            </li>
+            <li class="nav-item">
+              <%=link_to "Team", team_path, :class => "nav-link"%>
+            </li>
+            <li class="nav-item">
+            <%=link_to "Contact", contact_path, :class => "nav-link"%>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+        <%if !user_signed_in?%>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Connexion</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <%=link_to "S'inscrire", new_user_registration_path, :class => "nav-link text-dark"%>
+              <%=link_to "Se connecter", new_user_session_path, :class => "nav-link text-dark"%>
+            </div>
+          </li>
+        <%else%>
+          <li class="nav-item">          
+            <%= link_to "Mon Profile", user_path(current_user.id), :class => "nav-link"%>
+          </li>
+          <li class="nav-item">          
+            <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, :class => "nav-link" %>
+          </li>
+        <%end%>
+        </ul>
+    </div>
+    </nav>
+    
+    <div class="text-center" style="position: absolute; left: 50%;">
+    <%if notice.present?%>
+    <div id="notice" class="alert alert-primary mx-5 mt-2 px-5"><%= notice %></div>
+    <%end%>
+    </div>
+      <%= yield %>
+      <%# <%= debug(params) if Rails.env.development?       %> <%#%%>
+    </div>
   </body>
 </html>

@@ -1,6 +1,9 @@
-<h1>Editing Event</h1>
-
-<%= render 'form', event: @event %>
-
-<%= link_to 'Show', @event %> |
-<%= link_to 'Back', events_path %>
+<body class="text-center">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column align-items-center">
+    <h1 class="h3 mb-3 font-weight-normal">Editing Event</h1>
+    <%= render 'form', event: @event %>
+    <div>
+      <%= link_to 'Show', @event %> | <%= link_to 'Back', events_path %>
+    </div>
+  </div>
+</body>
