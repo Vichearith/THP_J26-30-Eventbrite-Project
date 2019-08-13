@@ -10,7 +10,7 @@ class AttendanceMailer < ApplicationMailer
 
     # c'est cet appel à mail() qui permet d'envoyer l’e-mail en définissant destinataire et sujet.
     #mail(to: User.find_by(@admin_id).email, subject: 'Tu as un nouveau participant !')
-    # mail(to: User.find(Event.find_by(id: Attendance.all.last.event_id).admin_id).email, subject: "Tu as un nouveau participant !") 
+    mail(to: User.find(Event.find_by(id: Attendance.all.last.event_id).admin_id).email, subject: "Tu as un nouveau participant !") 
 
   end
 end
