@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :only_see_own_events, only: [:edit]
 
   # GET /events
   # GET /events.json
@@ -73,5 +74,13 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params.require(:event).permit(:admin, :title, :start_date, :duration, :description, :location, :price)
+    end
+
+    def only_see_own_events
+      @event_admin = Event.find(params[:id]).admin
+    
+      if current_user != @event_admin
+        redirect_to root_path, notice: "Sorry, but you are only allowed to edit this event."
+      end
     end
 end
